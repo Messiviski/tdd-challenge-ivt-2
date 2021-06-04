@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "./server";
 
 class ApiCrypto {
 
@@ -6,14 +6,9 @@ class ApiCrypto {
 
   async getSymbols() {
     try {
-      const symbols = await axios.get("https://rest.coinapi.io/v1/symbols", {
-        method: "GET",
-        headers: {"X-CoinAPI-Key": "BD615AB0-1DC3-487C-A83B-F1EFF1993C5E"}
-      }).then(response => {
-        return response.data
-      });
+      const symbols = await axiosInstance.get("/symbols");
 
-      return symbols;
+      return symbols.data;
     } catch (error) {
       throw new Error(`Something went wrong! Message: ${error.message}`);
     }
@@ -21,14 +16,9 @@ class ApiCrypto {
 
   async getExchanges() {
     try {
-      const exchanges = await axios.get("https://rest.coinapi.io/v1/exchanges", {
-        method: "GET",
-        headers: {"X-CoinAPI-Key": "BD615AB0-1DC3-487C-A83B-F1EFF1993C5E"}
-      }).then(response => {
-        return response.data
-      });
+      const exchanges = await axiosInstance.get("/exchanges");
 
-      return exchanges;
+      return exchanges.data;
     } catch (error) {
       throw new Error(`Something went wrong! Message: ${error.message}`);
     }
@@ -36,16 +26,11 @@ class ApiCrypto {
 
   async getHistoricalQuotes() {
     try {
-      const url = "https://rest.coinapi.io/v1/quotes/BITSTAMP_SPOT_BTC_USD/history?time_start=2016-01-01T00:00:00";
+      const getPath = "/quotes/BITSTAMP_SPOT_BTC_USD/history?time_start=2016-01-01T00:00:00";
 
-      const historicalQuotes = await axios.get(url, {
-        method: "GET",
-        headers: {"X-CoinAPI-Key": "BD615AB0-1DC3-487C-A83B-F1EFF1993C5E"}
-      }).then(response => {
-        return response.data
-      });
+      const historicalQuotes = await axiosInstance.get(getPath);
 
-      return historicalQuotes;
+      return historicalQuotes.data;
     } catch (error) {
       throw new Error(`Something went wrong! Message: ${error.message}`)
     }

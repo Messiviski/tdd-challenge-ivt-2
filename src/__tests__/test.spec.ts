@@ -4,6 +4,7 @@ import nock from "nock";
 const apiCrypto = new ApiCrypto();
 
 describe("ApiCrypto Tests", () => {
+
   describe("getSymbols Tests", () => {
     it("should be able to return the symbols when the status code of the resquest is 200", async () => {
       nock("https://rest.coinapi.io", {
